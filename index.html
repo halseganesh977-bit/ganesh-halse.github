@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sahyadri Journeys — Travel made joyful</title>
+  <meta name="description" content="Discover curated group tours, family holidays, and tailor-made travel across India and the world. Transparent pricing, expert tour managers, and seamless experiences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #0b1220;
+      --card: #0d1729;
+      --text: #e6eaf2;
+      --muted: #bfc7d6;
+      --primary: #ff6b3d;
+      --primary-700: #e65f35;
+      --accent: #00d1c1;
+      --success: #6dd47e;
+      --warning: #f7c948;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box }
+    html { scroll-behavior: smooth }
+    html, body {
+      margin:0; padding:0;
+      background: linear-gradient(120deg, #0b1220 0%, #0f172a 60%, #121b33 100%);
+      color: var(--text);
+      font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none }
+    img, video { max-width: 100%; display:block }
+    .container { width: min(1200px, 92vw); margin: 0 auto }
+
+    /* Header */
+    header {
+      position: fixed; top:0; left:0; right:0; z-index: 1000;
+      backdrop-filter: blur(10px) saturate(140%);
+      background: rgba(11,18,32,0.55);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0 }
+    .brand { display:flex; align-items:center; gap:12px }
+    .logo { width:40px; height:40px; border-radius:10px; background: radial-gradient(circle at 35% 35%, var(--accent), transparent 40%), linear-gradient(135deg, #1b2845, #0d1729); box-shadow: var(--shadow) }
+    .brand h1 { font-family: Playfair Display, serif; font-size: 1.35rem; letter-spacing:.3px }
+    nav ul { list-style:none; display:flex; gap:22px; margin:0; padding:0 }
+    nav a { padding:10px 12px; border-radius:10px; color: var(--muted) }
+    nav a:hover, nav a.active { background: rgba(255,255,255,0.06); color: #fff }
+    .cta { display:flex; gap:12px }
+    .btn { padding:10px 16px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color:#fff; font-weight:600 }
+    .btn.primary { background: var(--primary); border-color: transparent }
+    .btn.primary:hover { background: var(--primary-700) }
+
+    /* Hero */
+    .hero {
+      margin-top:68px; position:relative; min-height: 72vh; display:flex; align-items:center; overflow:hidden;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .hero video {
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      filter: saturate(110%) contrast(105%) brightness(85%);
+    }
+    .overlay { position:absolute; inset:0; background: linear-gradient(180deg, rgba(10,14,28,0.55), rgba(10,14,28,0.9)) }
+    .hero .content { position:relative; z-index:2; width:min(1100px,92vw); margin:0 auto; padding:60px 0 }
+    .kicker { color: var(--accent); font-weight:700; text-transform: uppercase; letter-spacing:.15em; font-size:.8rem }
+    .hero h2 { font-family: Playfair Display, serif; font-size: clamp(2rem, 5vw, 3.6rem); line-height:1.05; margin: 16px 0 }
+    .hero p { color: var(--muted); max-width: 760px; font-size: 1.05rem }
+    .search-bar {
+      display:grid; grid-template-columns: 1.2fr 1fr 1fr .8fr auto; gap:10px; padding:12px;
+      background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius: var(--radius); margin-top: 22px
+    }
+    .field { display:flex; flex-direction:column; gap:6px }
+    .field label { font-size:.8rem; color: var(--muted) }
+    .field input, .field select {
+      padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background: rgba(10,16,28,0.6); color:#fff
+    }
+    .badges { margin-top:14px; display:flex; gap:12px; flex-wrap: wrap }
+    .badge { padding:8px 12px; border-radius:999px; background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color: var(--muted); font-weight:600 }
+    .trust { display:flex; gap:18px; align-items:center; margin-top:18px; color: var(--muted) }
+    .tick { width:22px; height:22px; border-radius:6px; background: linear-gradient(135deg, #1b2845, #0d1729); display:grid; place-items:center; color: var(--success); font-weight:900 }
+
+    /* Sections */
+    section { padding: 60px 0 }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:22px }
+    .section-head h3 { font-family: Playfair Display, serif; font-size: 2rem }
+    .section-head p { color: var(--muted) }
+
+    /* Grids and cards */
+    .grid { display:grid; gap:18px }
+    .grid.cols-4 { grid-template-columns: repeat(4, 1fr) }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr) }
+    @media (max-width: 980px) { .grid.cols-4 { grid-template-columns: repeat(2, 1fr) } }
+    @media (max-width: 680px) { .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr } }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08); border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow)
+    }
+    .card .media { position:relative; aspect-ratio: 16/10; overflow:hidden }
+    .card .media img, .card .media video { width:100%; height:100%; object-fit:cover }
+    .label { position:absolute; left:14px; top:14px; padding:8px 10px; border-radius:10px; background: rgba(0,0,0,0.45); color:#fff; font-size:.85rem; font-weight:700 }
+    .card .body { padding:16px }
+    .card h4 { margin:0 0 6px; font-size:1.1rem }
+    .card p { margin:0; color: var(--muted) }
+    .meta { display:flex; justify-content:space-between; align-items:center; margin-top: 12px; color: var(--muted) }
+    .price { font-weight:700; color:#fff }
+    .pill { padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); font-size:.85rem }
+
+    /* Banner / deals */
+    .banner {
+      border:1px solid rgba(255,255,255,0.08);
+      background: radial-gradient(1000px 500px at 100% 0%, rgba(255,107,61,0.28), transparent 35%), linear-gradient(120deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border-radius: var(--radius); padding: 22px; display:flex; align-items:center; justify-content:space-between; gap:18px
+    }
+    .banner h4 { margin:0; font-size:1.15rem }
+    .timer { font-weight:700; color: var(--warning) }
+
+    /* Mosaic gallery */
+    .mosaic { display:grid; grid-template-columns: 2fr 1fr 1fr; gap:12px }
+    .tile { border-radius:12px; overflow:hidden; position:relative; aspect-ratio: 3/2 }
+    .tile img, .tile video { width:100%; height:100%; object-fit:cover }
+    @media (max-width: 880px) { .mosaic { grid-template-columns: 1fr } }
+
+    /* Testimonials */
+    .quote { background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); padding:16px; border-radius: var(--radius) }
+    .quote p { margin:0; color: var(--muted) }
+    .who { margin-top:10px; font-weight:700 }
+
+    /* FAQ */
+    .faq { display:grid; grid-template-columns: 1fr 1fr; gap:16px }
+    @media (max-width:880px) { .faq { grid-template-columns:1fr } }
+    .q { background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); padding:16px; border-radius: var(--radius) }
+    .q h5 { margin:0 0 8px }
+
+    /* Footer */
+    footer { border-top:1px solid rgba(255,255,255,0.08); padding:40px 0; color: var(--muted) }
+    .foot { display:grid; grid-template-columns: 2fr 1fr 1fr; gap:18px }
+    @media (max-width:880px) { .foot { grid-template-columns:1fr } }
+    .foot h6 { margin:0 0 10px; font-size:.95rem; color:#fff }
+    .social { display:flex; gap:10px; margin-top:10px }
+    .social a { padding:8px 10px; border-radius:10px; border:1px solid rgba(255,255,255,0.12) }
+    .legal { margin-top:16px; font-size:.85rem; color:#9aa6bd }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Sahyadri Journeys</h1>
+      </div>
+      <nav aria-label="Main">
+        <ul>
+          <li><a class="active" href="#home">Home</a></li>
+          <li><a href="#tours">Group tours</a></li>
+          <li><a href="#family">Family holidays</a></li>
+          <li><a href="#custom">Custom trips</a></li>
+          <li><a href="#deals">Deals</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cta">
+        <a class="btn" href="#">Sign in</a>
+        <a class="btn primary" href="#contact">Book now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home" aria-label="Hero video">
+    <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop">
+      <source src="https://cdn.coverr.co/videos/coverr-waves-and-shore-9562/1080p.mp4" type="video/mp4">
+      <source src="https://cdn.coverr.co/videos/coverr-waves-and-shore-9562/720p.mp4" type="video/mp4">
+    </video>
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="content">
+      <div class="kicker">Curated journeys</div>
+      <h2>Incredible destinations, seamless tours, and joyful memories</h2>
+      <p>Choose from handpicked itineraries across India and abroad with expert tour managers, comfortable stays, and transparent pricing.</p>
+
+      <form class="search-bar" aria-label="Search tours">
+        <div class="field">
+          <label for="where">Destination</label>
+          <input id="where" name="where" type="text" placeholder="Mauritius, Bhutan, Dubai…" />
+        </div>
+        <div class="field">
+          <label for="dates">Dates</label>
+          <input id="dates" name="dates" type="text" placeholder="25 Dec – 2 Jan" />
+        </div>
+        <div class="field">
+          <label for="type">Trip type</label>
+          <select id="type" name="type">
+            <option>Group tour</option>
+            <option>Family holiday</option>
+            <option>Honeymoon</option>
+            <option>Corporate MICE</option>
+            <option>Custom</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="budget">Budget</label>
+          <select id="budget" name="budget">
+            <option>Under ₹80,000</option>
+            <option>₹80,000–₹1,50,000</option>
+            <option>₹1,50,000–₹3,00,000</option>
+            <option>₹3,00,000+</option>
+          </select>
+        </div>
+        <a class="btn primary" href="#tours">Search tours</a>
+      </form>
+
+      <div class="badges" aria-label="Highlights">
+        <div class="badge">1M+ Happy travellers</div>
+        <div class="badge">280+ curated packages</div>
+        <div class="badge">Expert tour managers</div>
+        <div class="badge">Transparent pricing</div>
+      </div>
+
+      <div class="trust">
+        <div class="tick">✓</div> Trusted by families, honeymooners, and corporate teams across India
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured group tours -->
+  <section id="tours">
+    <div class="container">
+      <div class="section-head">
+        <h3>Featured group tours</h3>
+        <p>All-inclusive itineraries with flights, stays, sightseeing, and meals.</p>
+      </div>
+      <div class="grid cols-4">
+        <article class="card">
+          <div class="media">
+            <img src="https://bynder.onthebeach.co.uk/cdn-cgi/image/width=1400,quality=70,fit=cover,format=auto/m/1b1b4f58c92838a3/original/Lagoon-Attitude-Adults-Only.jpg" alt="Mauritius lagoon and beach" />
+            <div class="label">Including airfare</div>
+          </div>
+          <div class="body">
+            <h4>Mauritius Delight — 5N/6D</h4>
+            <p>Blue Bay, Ile aux Cerfs, North & South tours, and beachside leisure.</p>
+            <div class="meta"><span class="price">Starts from ₹1,85,000*</span><span class="pill">Dec–Feb</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media">
+            <img src="https://www.culturaobscura.com/wp-content/uploads/2019/05/IMG_2030-Version-2-copy-1200x750.jpg" alt="Bhutan monastery on cliff" />
+            <div class="label">Culture</div>
+          </div>
+          <div class="body">
+            <h4>Bhutan Bliss — 6N/7D</h4>
+            <p>Paro, Thimphu, Tigers Nest, serene valleys and guided walks.</p>
+            <div class="meta"><span class="price">Starts from ₹1,01,000*</span><span class="pill">Year-round</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media">
+            <img src="https://media.istockphoto.com/id/527899020/photo/dubai-skyline-reflection-dubai-united-arab-emirates.jpg?s=612x612&w=0&k=20&c=vMFbUXlhwNRgm2YgRvteMY3BAE6jy23qBX00uF9VZYg=" alt="Dubai skyline at dusk" />
+            <div class="label">Cityscapes</div>
+          </div>
+          <div class="body">
+            <h4>Dubai & Desert Magic — 4N/5D</h4>
+            <p>Burj Khalifa, Marina cruise, desert safari, and souk shopping.</p>
+            <div class="meta"><span class="price">Starts from ₹1,02,000*</span><span class="pill">Oct–Mar</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media">
+            <img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?q=80&w=1400&auto=format&fit=crop" alt="Nepal Himalayas and prayer flags" />
+            <div class="label">Nature</div>
+          </div>
+          <div class="body">
+            <h4>Nepal Heights — 5N/6D</h4>
+            <p>Kathmandu, Pokhara, Himalayan viewpoints, and lakeside strolls.</p>
+            <div class="meta"><span class="price">Starts from ₹79,000*</span><span class="pill">Mar–Jun</span></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="banner" id="deals" style="margin-top:22px">
+        <h4>Unlock unbeatable travel deals — limited-time festive offers</h4>
+        <div class="timer">Offers live now</div>
+        <a class="btn primary" href="#contact">View all deals</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Family holidays -->
+  <section id="family">
+    <div class="container">
+      <div class="section-head">
+        <h3>Family holidays</h3>
+        <p>Kid-friendly itineraries, comfortable transfers, and flexible pacing.</p>
+      </div>
+      <div class="grid cols-3">
+        <article class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1400&auto=format&fit=crop" alt="Goa beach sunset"/></div>
+          <div class="body">
+            <h4>Goa Sunshine — 3N/4D</h4>
+            <p>Beaches, spice plantations, and heritage walks.</p>
+            <div class="meta"><span class="price">From ₹32,000*</span><span class="pill">Family</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1400&auto=format&fit=crop" alt="Kerala backwaters"/></div>
+          <div class="body">
+            <h4>Kerala Backwaters — 5N/6D</h4>
+            <p>Houseboat stays, tea gardens, and wellness breaks.</p>
+            <div class="meta"><span class="price">From ₹58,000*</span><span class="pill">Relax</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media"><img src="https://www.indiantempletour.com/wp-content/uploads/2022/08/Andaman-and-Nicobar-Islands-Package-1.jpg" alt="Andaman islands"/></div>
+          <div class="body">
+            <h4>Andaman Escape — 5N/6D</h4>
+            <p>Pristine beaches, snorkeling, and historical sites.</p>
+            <div class="meta"><span class="price">From ₹61,000*</span><span class="pill">Adventure</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom trips & MICE -->
+  <section id="custom">
+    <div class="container">
+      <div class="section-head">
+        <h3>Custom trips & corporate MICE</h3>
+        <p>Tailored itineraries for honeymoons, incentives, offsites, and conferences.</p>
+      </div>
+      <div class="grid cols-3">
+        <article class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1400&auto=format&fit=crop" alt="Santorini cliffs"/></div>
+          <div class="body">
+            <h4>Honeymoon Europe — 9N/10D</h4>
+            <p>Romantic cities, scenic rail journeys, and boutique stays.</p>
+            <div class="meta"><span class="price">Custom pricing</span><span class="pill">Tailor-made</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media"><img src="https://sweetescapeholiday.com/wp-content/uploads/2019/01/MICEDUBAI.jpg" alt="Conference hall"/></div>
+          <div class="body">
+            <h4>Dubai MICE — 3N/4D</h4>
+            <p>Venue sourcing, logistics, curated experiences for teams.</p>
+            <div class="meta"><span class="price">On request</span><span class="pill">Corporate</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="media"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1400&auto=format&fit=crop" alt="Island resort"/></div>
+          <div class="body">
+            <h4>Maldives Retreat — 4N/5D</h4>
+            <p>Overwater villas, private dining, and spa indulgence.</p>
+            <div class="meta"><span class="price">Custom pricing</span><span class="pill">Luxury</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery & videos -->
+  <section aria-label="Gallery and videos">
+    <div class="container">
+      <div class="section-head">
+        <h3>Moments that stay</h3>
+        <p>Photos and videos from recent departures.</p>
+      </div>
+      <div class="mosaic">
+        <div class="tile">
+          <img src="https://images.unsplash.com/photo-1470770841072-16264f2f0b37?q=80&w=1600&auto=format&fit=crop" alt="Friends jumping at beach"/>
+        </div>
+        <div class="tile">
+          <video controls playsinline poster="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1400&auto=format&fit=crop">
+            <source src="https://cdn.coverr.co/videos/coverr-skiing-downhill-7405/1080p.mp4" type="video/mp4"/>
+          </video>
+        </div>
+        <div class="tile">
+          <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?q=80&w=1600&auto=format&fit=crop" alt="Family on safari vehicle"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section aria-label="Testimonials">
+    <div class="container">
+      <div class="section-head">
+        <h3>What travellers say</h3>
+        <p>Reviews from guests across India.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="quote">
+          <p>“Expertly organized and truly hassle-free. Our tour manager took care of everything.”</p>
+          <div class="who">— Ananya & Rohan, Pune</div>
+        </div>
+        <div class="quote">
+          <p>“Kid-friendly pace and great hotel choices. We made memories for a lifetime.”</p>
+          <div class="who">— The Rao family, Bengaluru</div>
+        </div>
+        <div class="quote">
+          <p>“Transparent pricing and no surprises. Highly recommended for first-time travelers.”</p>
+          <div class="who">— Vikram, Mumbai</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section aria-label="Frequently asked questions">
+    <div class="container">
+      <div class="section-head">
+        <h3>Good to know</h3>
+        <p>Answers to common questions before you book.</p>
+      </div>
+      <div class="faq">
+        <div class="q">
+          <h5>What’s included in group tours?</h5>
+          <p>Accommodation, selected meals, guided sightseeing, transfers, and on-tour support. Detailed inclusions vary by itinerary.</p>
+        </div>
+        <div class="q">
+          <h5>Can we customize an itinerary?</h5>
+          <p>Yes. Choose travel dates, hotels, activities, and add special experiences tailored to your preferences.</p>
+        </div>
+        <div class="q">
+          <h5>How do payments and cancellations work?</h5>
+          <p>Flexible payment options with clear cancellation policies. You’ll receive terms during booking.</p>
+        </div>
+        <div class="q">
+          <h5>Do packages include airfare?</h5>
+          <p>Many international tours include flights; domestic packages may list flights as optional adds. Check each tour page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" aria-label="Contact and newsletter">
+    <div class="container">
+      <div class="section-head">
+        <h3>Get in touch</h3>
+        <p>Talk to an expert for the best suggestions.</p>
+      </div>
+      <div class="foot">
+        <div>
+          <h6>Write to us</h6>
+          <form aria-label="Contact form">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" type="text" placeholder="Your name"/>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="you@example.com"/>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <input id="message" type="text" placeholder="Tell us about your trip"/>
+            </div>
+            <div style="margin-top:12px">
+              <button type="submit" class="btn primary">Send</button>
+            </div>
+          </form>
+          <div class="legal">By contacting us, you agree to our terms and privacy policy.</div>
+        </div>
+        <div>
+          <h6>Office</h6>
+          <p>Sahyadri Journeys — Maharashtra, India</p>
+          <p>Mon–Sat, 10:00–18:00 IST</p>
+          <div class="social">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+            <a href="#" aria-label="Facebook">Facebook</a>
+          </div>
+        </div>
+        <div>
+          <h6>Newsletter</h6>
+          <p>Get fresh deals and destination ideas in your inbox.</p>
+          <form aria-label="Newsletter signup">
+            <div class="field">
+              <label for="news-email">Email</label>
+              <input id="news-email" type="email" placeholder="you@example.com"/>
+            </div>
+            <div style="margin-top:12px">
+              <button type="submit" class="btn">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="legal">© 2025 Sahyadri Journeys. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>
